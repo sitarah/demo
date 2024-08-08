@@ -1,0 +1,203 @@
+prompt,genre
+Deploy a new 5G network slice.,Orchestration
+Scale up the bandwidth for service X.,Orchestration
+Provision a new IoT device on the network.,Orchestration
+Automate load balancing for the core network.,Orchestration
+Configure network policies for low latency.,Orchestration
+Set up a secure communication channel for user Y.,Orchestration
+Initiate a network upgrade for 5G infrastructure.,Orchestration
+Optimize resource allocation for enhanced performance.,Orchestration
+Create a virtual network for test environment.,Orchestration
+Activate network slicing for enterprise applications.,Orchestration
+Provision additional capacity for mobile users.,Orchestration
+Deploy edge computing resources for fast data processing.,Orchestration
+Orchestrate dynamic spectrum allocation.,Orchestration
+Implement automated failover mechanisms.,Orchestration
+Enable network functions virtualization.,Orchestration
+Set up a private 5G network for the organization.,Orchestration
+Deploy AI-driven network optimization tools.,Orchestration
+Create a new APN for corporate users.,Orchestration
+Automate network congestion management.,Orchestration
+Configure the network for ultra-reliable low latency communication.,Orchestration
+Set up MEC servers at strategic locations.,Orchestration
+Deploy a backup 5G network slice.,Orchestration
+Orchestrate SD-WAN for improved connectivity.,Orchestration
+Enable zero-touch provisioning for new devices.,Orchestration
+Implement network slicing for high-priority users.,Orchestration
+Provision 5G network for a smart city project.,Orchestration
+Configure security protocols for critical applications.,Orchestration
+Deploy enhanced mobile broadband services.,Orchestration
+Orchestrate seamless handover between 5G and WiFi.,Orchestration
+Set up automated network anomaly detection.,Orchestration
+Implement dynamic policy management.,Orchestration
+Deploy a service chain for network functions.,Orchestration
+Provision virtualized RAN components.,Orchestration
+Optimize network traffic for real-time applications.,Orchestration
+Configure network to support high-density user environments.,Orchestration
+Automate disaster recovery procedures.,Orchestration
+Set up network for vehicle-to-everything communication.,Orchestration
+Deploy new software updates across the network.,Orchestration
+Orchestrate multi-access edge computing services.,Orchestration
+Configure network for augmented reality applications.,Orchestration
+Enable network slicing for healthcare services.,Orchestration
+Provision additional spectrum resources.,Orchestration
+Set up automated QoS management.,Orchestration
+Deploy a 5G network for rural areas.,Orchestration
+Optimize network for video streaming services.,Orchestration
+Implement automated network capacity planning.,Orchestration
+Orchestrate connectivity for drone operations.,Orchestration
+Configure network for mission-critical applications.,Orchestration
+Deploy infrastructure for smart manufacturing.,Orchestration
+Set up secure network access for remote workers.,Orchestration
+Provision network for high-speed data transfer.,Orchestration
+Orchestrate network services for cloud gaming.,Orchestration
+Implement automated service assurance.,Orchestration
+Enable network slicing for emergency services.,Orchestration
+Deploy IoT connectivity for smart grids.,Orchestration
+Optimize network for latency-sensitive applications.,Orchestration
+Configure network to support high user mobility.,Orchestration
+Automate network service orchestration.,Orchestration
+Deploy new cell sites in urban areas.,Orchestration
+Set up network for seamless IoT device onboarding.,Orchestration
+Implement automated SLA management.,Orchestration
+Provision network resources for VR applications.,Orchestration
+Orchestrate connectivity for autonomous vehicles.,Orchestration
+Configure network for enhanced mobile broadband.,Orchestration
+Deploy 5G network for event venues.,Orchestration
+Enable automated network diagnostics.,Orchestration
+Set up network for remote surgery applications.,Orchestration
+Implement network slicing for entertainment services.,Orchestration
+Provision additional backhaul capacity.,Orchestration
+Optimize network for cloud-based services.,Orchestration
+Configure network for smart agriculture.,Orchestration
+Automate network topology changes.,Orchestration
+Deploy network for public safety communications.,Orchestration
+Orchestrate edge computing for IoT applications.,Orchestration
+Enable network slicing for industrial automation.,Orchestration
+Set up automated network healing mechanisms.,Orchestration
+Provision network for high-speed rail connectivity.,Orchestration
+Implement dynamic spectrum sharing.,Orchestration
+Configure network to support massive IoT.,Orchestration
+Deploy infrastructure for remote learning.,Orchestration
+Optimize network for gaming applications.,Orchestration
+Set up network for smart home connectivity.,Orchestration
+Automate network configuration changes.,Orchestration
+Orchestrate network services for retail environments.,Orchestration
+Enable network slicing for logistics and transportation.,Orchestration
+Provision network for telemedicine applications.,Orchestration
+Configure network for high-definition video services.,Orchestration
+Deploy new small cell sites.,Orchestration
+Implement automated fault management.,Orchestration
+Set up network for immersive experiences.,Orchestration
+Optimize network for low-power wide-area applications.,Orchestration
+Orchestrate connectivity for connected cars.,Orchestration
+Enable network slicing for media and entertainment.,Orchestration
+Provision network for disaster response.,Orchestration
+Configure network for multi-gigabit speeds.,Orchestration
+Automate network service deployment.,Orchestration
+Deploy 5G network for smart campuses.,Orchestration
+Set up network for precision agriculture.,Orchestration
+Implement automated network monitoring.,Orchestration
+Provision additional network slices.,Orchestration
+Optimize network for live broadcasting.,Orchestration
+Configure network for real-time analytics.,Orchestration
+Monitor network latency in real-time.,Monitoring
+Check the bandwidth usage of 5G users.,Monitoring
+Track the health of network devices.,Monitoring
+Monitor network traffic for anomalies.,Monitoring
+Check the status of 5G network slices.,Monitoring
+Track the performance of mobile edge computing nodes.,Monitoring
+Monitor data throughput across the network.,Monitoring
+Check for packet loss in the network.,Monitoring
+Track network congestion levels.,Monitoring
+Monitor the availability of network services.,Monitoring
+Check the signal strength of 5G connections.,Monitoring
+Track the performance of virtualized network functions.,Monitoring
+Monitor energy consumption of network equipment.,Monitoring
+Check the latency of networked applications.,Monitoring
+Track the usage of spectrum resources.,Monitoring
+Monitor the uptime of critical network components.,Monitoring
+Check for network configuration changes.,Monitoring
+Track the quality of service for different users.,Monitoring
+Monitor the security of network communications.,Monitoring
+Check the performance of 5G base stations.,Monitoring
+Track the load on network gateways.,Monitoring
+Monitor network response times.,Monitoring
+Check the status of automated network processes.,Monitoring
+Track the performance of IoT devices.,Monitoring
+Monitor the bandwidth allocation for different services.,Monitoring
+Check for hardware failures in the network.,Monitoring
+Track the utilization of network slices.,Monitoring
+Monitor the performance of edge computing services.,Monitoring
+Check for network protocol violations.,Monitoring
+Track the operational status of network links.,Monitoring
+Monitor the performance of real-time applications.,Monitoring
+Check the status of software-defined network controllers.,Monitoring
+Track the security events in the network.,Monitoring
+Monitor the throughput of 5G core network.,Monitoring
+Check for jitter in voice communications.,Monitoring
+Track the efficiency of network routing.,Monitoring
+Monitor the status of network backups.,Monitoring
+Check for service degradation in 5G services.,Monitoring
+Track the performance of mobile applications.,Monitoring
+Monitor the health of network firewalls.,Monitoring
+Check the status of network interface cards.,Monitoring
+Track the latency of IoT communications.,Monitoring
+Monitor network for unauthorized access.,Monitoring
+Check the status of cloud-based network services.,Monitoring
+Track the performance of video streaming services.,Monitoring
+Monitor the utilization of mobile network resources.,Monitoring
+Check for anomalies in user traffic patterns.,Monitoring
+Track the efficiency of network resource allocation.,Monitoring
+Monitor the status of VPN connections.,Monitoring
+Check the health of virtual machines in the network.,Monitoring
+Track the load on 5G small cells.,Monitoring
+Monitor the performance of augmented reality applications.,Monitoring
+Check for compliance with network SLAs.,Monitoring
+Track the energy efficiency of network operations.,Monitoring
+Monitor the status of network upgrades.,Monitoring
+Check for network performance bottlenecks.,Monitoring
+Track the status of network synchronization.,Monitoring
+Monitor the reliability of mission-critical communications.,Monitoring
+Check the status of network automation scripts.,Monitoring
+Track the usage of mobile broadband services.,Monitoring
+Monitor the performance of network orchestrators.,Monitoring
+Check for interference in wireless communications.,Monitoring
+Track the operational status of network switches.,Monitoring
+Monitor the latency of cloud services.,Monitoring
+Check for network misconfigurations.,Monitoring
+Track the performance of network security protocols.,Monitoring
+Monitor the status of network slicing.,Monitoring
+Check the health of MEC infrastructure.,Monitoring
+Track the quality of networked multimedia services.,Monitoring
+Monitor the utilization of network processing power.,Monitoring
+Check the status of network failover mechanisms.,Monitoring
+Track the efficiency of spectrum utilization.,Monitoring
+Monitor the performance of telemedicine services.,Monitoring
+Check for delays in network service provisioning.,Monitoring
+Track the operational status of 5G towers.,Monitoring
+Monitor the status of network service chains.,Monitoring
+Check for packet drops in critical applications.,Monitoring
+Track the health of SDN components.,Monitoring
+Monitor the performance of connected vehicle services.,Monitoring
+Check the status of 5G NR (New Radio) deployment.,Monitoring
+Track the efficiency of network caching mechanisms.,Monitoring
+Monitor the reliability of disaster recovery systems.,Monitoring
+Check for inconsistencies in network data.,Monitoring
+Track the performance of virtual network interfaces.,Monitoring
+Monitor the utilization of network storage resources.,Monitoring
+Check for abnormal latency spikes.,Monitoring
+Track the operational status of network antennas.,Monitoring
+Monitor the performance of remote access services.,Monitoring
+Check the status of network time synchronization.,Monitoring
+Track the health of network-based AI services.,Monitoring
+Monitor the efficiency of dynamic spectrum allocation.,Monitoring
+Check for congestion in critical network paths.,Monitoring
+Track the status of network slicing for specific applications.,Monitoring
+Monitor the performance of network load balancers.,Monitoring
+Check for unauthorized changes in network configuration.,Monitoring
+Track the efficiency of automated network healing.,Monitoring
+Monitor the status of cloud-native network functions.,Monitoring
+Check for service outages in critical communications.,Monitoring
+Track the operational status of network orchestrations.,Monitoring
+Monitor the performance of high-speed data transfer services.,Monitoring
