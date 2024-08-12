@@ -7,9 +7,17 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
+import io
+import matplotlib.colors as mcolors
+import joblib
+import os
 
 # Set page configuration
 st.set_page_config(page_title="Clasifyr", layout="wide")
+
+# File paths for saving and loading the model and vectorizer
+MODEL_PATH = 'model.joblib'
+VECTORIZER_PATH = 'vectorizer.joblib'
 
 # Ensure session state is initialized
 if 'session_id' not in st.session_state:
@@ -82,38 +90,28 @@ def train_machine_learning_model(df):
         accuracy = accuracy_score(y_test, y_pred)
         report = classification_report(y_test, y_pred, output_dict=True)
 
-        report_html = """
-            <div style="background: linear-gradient(to bottom, #e3f2fd, #f8bbd0); border-radius: 10px; padding: 20px; margin-top: 40px; text-align: center;">
+        report_df = pd.DataFrame(report).transpose()
+
+        # Save the trained model and vectorizer to files
+        joblib.dump(model, MODEL_PATH)
+        joblib.dump(vectorizer, VECTORIZER_PATH)
+
+        # Creating a table with the classification report data
+        report_table = report_df.style.format("{:.2f}").set_table_styles([
+            {'selector': 'th', 'props': [('font-size', '16px'), ('text-align', 'center')]},
+            {'selector': 'td', 'props': [('font-size', '14px'), ('text-align', 'center')]},
+            {'selector': 'thead th.col_heading', 'props': 'text-align: center;'}
+        ]).set_properties(**{'background-color': '#f0f4f9', 'color': 'black', 'border-color': '#e3e7ec'}).to_html()
+
+        # Displaying the table in the gradient div
+        st.write(f"""
+            <div style="background: linear-gradient(to bottom, #e3f2fd, #f8bbd0); border-radius: 10px; padding: 20px; margin-top: 20px; text-align: center; width: 80%; margin-left: auto; margin-right: auto;">
                 <h2 style="text-align: center; font-family: Arial, sans-serif;">Classification Report:</h2>
-                <div style="font-size: 16px; padding: 10px; background: #ffffff; border-radius: 10px; margin-top: 10px; text-align: left; display: inline-block;">
-                    <pre style="font-family: Arial, sans-serif;">
-<b>Precision    Recall  F1-Score   Support</b>
-<br>
-Monitoring  {monitoring_precision:.2f}     {monitoring_recall:.2f}  {monitoring_f1:.2f}  {monitoring_support}
-<br>
-Orchestration  {orchestration_precision:.2f}     {orchestration_recall:.2f}  {orchestration_f1:.2f}  {orchestration_support}
-<br>
-<b>Accuracy</b>  {accuracy:.2f}
-<b>Macro Avg</b>  {macro_avg_precision:.2f}     {macro_avg_recall:.2f}  {macro_avg_f1:.2f}  
-                    </pre>
+                <div style="font-size: 16px; padding: 10px; background: #ffffff; border-radius: 10px; margin-top: 10px; text-align: centre; display: inline-block; width: 100%;">
+                    {report_table}
                 </div>
             </div>
-        """.format(
-            monitoring_precision=report['Monitoring']['precision'],
-            monitoring_recall=report['Monitoring']['recall'],
-            monitoring_f1=report['Monitoring']['f1-score'],
-            monitoring_support=report['Monitoring']['support'],
-            orchestration_precision=report['Orchestration']['precision'],
-            orchestration_recall=report['Orchestration']['recall'],
-            orchestration_f1=report['Orchestration']['f1-score'],
-            orchestration_support=report['Orchestration']['support'],
-            accuracy=accuracy,
-            macro_avg_precision=report['macro avg']['precision'],
-            macro_avg_recall=report['macro avg']['recall'],
-            macro_avg_f1=report['macro avg']['f1-score']
-        )
-
-        st.write(report_html, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
         st.session_state['model'] = model
         st.session_state['vectorizer'] = vectorizer
@@ -123,9 +121,21 @@ Orchestration  {orchestration_precision:.2f}     {orchestration_recall:.2f}  {or
 
 # Function to make predictions
 def make_prediction(model, vectorizer, prompt):
+    # Check if the prompt is likely informative
+    if len(prompt.strip()) < 3 or not any(char.isalpha() for char in prompt):
+        return "Please provide an informative prompt."
+    
     prompt_vectorized = vectorizer.transform([prompt])
     prediction = model.predict(prompt_vectorized)
     return prediction[0]
+
+# Load the model and vectorizer if they exist
+def load_model_and_vectorizer():
+    if os.path.exists(MODEL_PATH) and os.path.exists(VECTORIZER_PATH):
+        model = joblib.load(MODEL_PATH)
+        vectorizer = joblib.load(VECTORIZER_PATH)
+        return model, vectorizer
+    return None, None
 
 # Custom CSS for the rest of the page
 st.markdown("""
@@ -179,39 +189,6 @@ st.markdown("""
         font-weight: 700;
         color: #c41e3a;
     }
-    .search-bar-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-        width: 100%;
-        color: #F0F4F9;
-    }
-    .search-input-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        color: #F0F4F9;
-    }
-    .search-input {
-        width: 100%;
-        height: 60px; /* Increased height */
-        border: 1px solid #ddd;
-        border-radius: 5px 0 0 5px; /* Rounded corners on the left side */
-        padding: 0 10px;
-        color: #F0F4F9;
-    }
-    .search-button {
-        background-color: #c41e3a;
-        color: white;
-        border: none;
-        padding: 0 20px;
-        height: 60px; /* Increased height */
-        border-radius: 0 5px 5px 0; /* Rounded corners on the right side */
-        cursor: pointer;
-        white-space: nowrap;
-    }
     .button {
         width: 100%;
         height: 150px;
@@ -223,21 +200,38 @@ st.markdown("""
         flex-direction: column;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         text-align: center;
-        font-size: 14px;
-        font-weight: bold;
         padding: 20px;
         margin: 10px;
         cursor: pointer; /* Make the cards clickable */
         border: none;
         color: inherit;
     }
+    .button .card-icon {
+        font-size: 48px; /* Increase the size of the icon */
+        margin-bottom: 10px;
+        color: #6c757d;
+    }
+    .button .card-text {
+        font-size: 18px; /* Increase the size of the text */
+        font-weight: bold; /* Make the text bold */
+    }
     .card-button:hover {
         background-color: #e3e7ec; /* Background color on hover */
     }
-    .card-icon {
-        font-size: 30px;
-        margin-bottom: 10px;
-        color: #6c757d;
+    .prediction-result {
+        background: linear-gradient(to bottom, #e3f2fd, #f8bbd0);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .spacer {
+        margin-bottom: 30px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -252,22 +246,31 @@ st.markdown('<div class="header">'
 st.markdown('<hr class="thin-line">', unsafe_allow_html=True)
 
 # Title and subtitle with gradient
-st.markdown('<div class="title"><span class="hello">Hello</span><span class="there"> There</span></div>', unsafe_allow_html=True)
+st.markdown('<div class="title"><span class="hello">Prompt</span><span class="there"> Classifier</span></div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle">Empowering Your Data: Classify and Predict with Precision</div>', unsafe_allow_html=True)
 
-# Search bar and button in the same row
-st.markdown('<div class="search-bar-container">', unsafe_allow_html=True)
-search_col1, search_col2 = st.columns([5, 1])
-with search_col1:
-    search_input = st.text_input("", key='search_input', value=st.session_state['search_input'], placeholder="Enter a prompt here", label_visibility="collapsed")
-with search_col2:
-    if st.button('Check', key='check_button'):
-        if st.session_state['model'] is None or st.session_state['vectorizer'] is None:
-            st.error("You need to train the model first.")
+# Display prediction section when 'Make predictions on new data' is clicked
+key = st.session_state.get('key', '')
+
+if key == 'make_predictions':
+    if st.session_state['model'] is None or st.session_state['vectorizer'] is None:
+        # Load the model and vectorizer if available
+        model, vectorizer = load_model_and_vectorizer()
+        if model is not None and vectorizer is not None:
+            st.session_state['model'] = model
+            st.session_state['vectorizer'] = vectorizer
         else:
+            st.error("You need to train the model first.")
+    if st.session_state['model'] is not None and st.session_state['vectorizer'] is not None:
+        search_input = st.text_input("Enter a prompt for Prediction:", key='search_input_prediction')
+        if st.button('Check Prediction', key='check_prediction_button'):
             prediction = make_prediction(st.session_state['model'], st.session_state['vectorizer'], search_input)
-            st.write(f"The predicted genre for the prompt '{search_input}' is '{prediction}'")
-st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown(f"""
+                <div class="prediction-result">
+                    {f'The predicted genre for the prompt "{search_input}" is "<b>{prediction}</b>"' if prediction != "Please provide an informative prompt." else prediction}
+                </div>
+            """, unsafe_allow_html=True)
+            st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)  # Spacer between output and buttons
 
 # Cards in a row with space
 cols = st.columns(4)
@@ -285,9 +288,6 @@ if cols[3].button('📈\nVisualize the model\'s performance', key='visualize_per
 # Handle file upload
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv", key="file_uploader")
 
-# Handle card clicks on the backend
-key = st.session_state.get('key', '')
-
 df = None
 
 if key == 'load_data':
@@ -296,25 +296,40 @@ elif key == 'train_model':
     df = load_and_display_csv(uploaded_file)  # Ensure the data is loaded
     if df is not None:
         train_machine_learning_model(df)
-elif key == 'make_predictions':
-    if st.session_state['model'] is None or st.session_state['vectorizer'] is None:
-        st.error("You need to train the model first.")
-    else:
-        search_input = st.text_input("Enter a prompt for prediction:", key='search_input_prediction')
-        if st.button('Check Prediction', key='check_prediction_button'):
-            prediction = make_prediction(st.session_state['model'], st.session_state['vectorizer'], search_input)
-            st.write(f"The predicted genre for the prompt '{search_input}' is '{prediction}'")
+
 elif key == 'visualize_performance':
     if st.session_state['y_test'] is None or st.session_state['y_pred'] is None:
         st.error("You need to train the model first.")
     else:
         cm = confusion_matrix(st.session_state['y_test'], st.session_state['y_pred'])
-        fig, ax = plt.subplots(figsize=(3, 2))  # Further adjust the figure size here
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax, cbar=False)  # Remove color bar for compactness
+        
+        # Custom color map using the provided colors
+        colors = ["#D96570", "#F4C6D9"]
+        cmap = mcolors.LinearSegmentedColormap.from_list("custom_cmap", colors)
+        
+        # Adjusting the figure size to be smaller
+        fig, ax = plt.subplots(figsize=(6, 4))  # Reduce the figure size
+        
+        # Customizing the heatmap with the custom color map
+        sns.heatmap(cm, annot=True, fmt='d', cmap=cmap, ax=ax, cbar=False, 
+                    annot_kws={"size": 10}, linewidths=0.2, linecolor='grey')
+        
         ax.set_xlabel('Predicted Labels', fontsize=10)
         ax.set_ylabel('True Labels', fontsize=10)
         ax.set_title('Confusion Matrix', fontsize=12)
-        st.pyplot(fig)
+        
+        # Adjust layout to prevent clipping of labels or title
+        plt.tight_layout()
+        
+        # Save the figure to a BytesIO object
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png')
+        buf.seek(0)
+        
+        # Center-align the image on the page with a fixed width
+        st.markdown(f"<div style='text-align: center;'>", unsafe_allow_html=True)
+        st.image(buf, width=750)  # Force the image to be 750px wide
+        st.markdown(f"</div>", unsafe_allow_html=True)
 
 # Custom style for file uploader area
 st.markdown("""
@@ -326,7 +341,7 @@ st.markdown("""
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
+        cursor: pointer; /* Make the cards clickable */
         transition: all 0.3s ease;
     }
     .css-1f6kzdf:hover {
